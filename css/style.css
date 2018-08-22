@@ -1,0 +1,6 @@
+.close_tag {
+    color: black;
+}
+.close_tag :hover {
+    color: red;
+}
