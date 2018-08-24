@@ -15,11 +15,11 @@
     $resultFromTests = $db->resultset();
 
 
-
+require_once "inc/header.php";
 
 if (isset($_GET['delTest'])) {
     if (delTest($_GET['delTest'], $db)) {
-        header('edit.php');
+        header('Location: http://localhost/tarasov/edit.php');
     } 
 }
 
@@ -28,11 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $post_cat_id = (int) $_POST['cat_id'];
     $post_test_name = trim($_POST['test_name']);
     if (addTest($post_test_name, $post_cat_id, $db)) {
-        header('edit.php');
+        header('Location: http://localhost/tarasov/edit.php');
     }
 }
 
-require_once "inc/header.php";
 ?>
 
 <div class="row">
