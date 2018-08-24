@@ -1,4 +1,9 @@
 <?php 
+/**
+ * Убрать запросы в отдельные функции
+ * Написать коментарии
+ * редактирование добавить
+ */
     require_once 'lib/Database.php';
     require_once 'lib/functions.php';
 
@@ -6,31 +11,24 @@
     $db->query("SELECT * FROM category");
     $resultFromCategory = $db->resultset();
 
-    // !!!! НУЖНО ПЕРЕПИСАТЬ ФУНКЦИЮ И СДЕЛАТЬ JOIN для отображения категорий
-    /**
-     * 
-     * 
-     * "SELECT *,
-     *                   items.id as itemId
-     *                   FROM items 
-     *                   INNER JOIN lists
-     *                   ON items.list_id = lists.id
-     *                   WHERE items.list_id ='$id'");
-     * 
-     * 
-     * 
-     */
-    $db->query('SELECT * FROM tests');
+    $db->query('SELECT * FROM `tests` INNER JOIN category ON tests.category_id = category.id_category');
     $resultFromTests = $db->resultset();
-    
+
+
 require_once "inc/header.php";
+
+if (isset($_GET['delTest'])) {
+    if (delTest($_GET['delTest'], $db)) {
+        header('Location: http://localhost/tarasov/edit.php');
+    } 
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     $post_cat_id = (int) $_POST['cat_id'];
     $post_test_name = trim($_POST['test_name']);
     if (addTest($post_test_name, $post_cat_id, $db)) {
-        header('Location: http://localhost/tarasov/tests.php');
+        header('Location: http://localhost/tarasov/edit.php');
     }
 }
 
@@ -61,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </form>
                 </div>
             </div>
-            
         </div>
     </div>
     <div class="col-8">
@@ -90,10 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                <tr>
                  <td><?php echo $num; ?></td>
                  <td><?php echo $key['test_name']; ?></td>
-                 <td><?php echo $key['test_name']; ?></td>
+                 <td><?php echo $key['category_name']; ?></td>
                  <td>
-                   <a href="details.html" class="btn btn-secondary">
+                   <a href="details.php?test=<?php echo $key['tests_id']; ?>" class="btn btn-secondary">
                      <i class="fas fa-angle-double-right"></i> Подробнее
+                   </a>
+                   <a href="edit.php?delTest=<?php echo $key['tests_id']; ?>" class="btn btn-danger">
+                   <i class="fas fa-times-circle"></i> Удалить
                    </a>
                  </td>
                </tr>
@@ -112,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     </div>
 </div>
+
 
 <?php
 require_once "inc/footer.php";

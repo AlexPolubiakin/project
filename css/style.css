@@ -4,3 +4,11 @@
 .close_tag :hover {
     color: red;
 }
+
+.del_icon {
+    color: red;
+}
+
+body {
+  overflow-x: hidden;
+}

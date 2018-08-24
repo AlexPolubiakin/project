@@ -1,4 +1,9 @@
 <?php 
+/**
+ * Дописать эдит категорий !!!!
+ * Написать коментарии
+ * 
+ */
     require_once 'lib/Database.php';
     require_once 'lib/functions.php';
 

@@ -16,14 +16,17 @@
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
   <div class="container">
-    <a href="index.php" class="navbar-brand">На главную</a>
+    <a href="index.php" class="navbar-brand">CRUD APP</a>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav">
         <li class="nav-item px-2">
           <a href="categories.php" class="nav-link">Категории</a>
         </li>
         <li class="nav-item px-2">
-          <a href="tests.php" class="nav-link">Тесты</a>
+          <a href="edit.php" class="nav-link">Тесты</a>
+        </li>
+        <li class="nav-item px-2">
+          <a href="details.php" class="nav-link">Вопросы</a>
         </li>
       </ul>
     </div>
