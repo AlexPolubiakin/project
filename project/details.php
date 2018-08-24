@@ -8,7 +8,7 @@ $db = new Database;
 $allTests = getAllTestInnerJoinCategory($db);
 $allOptions = getOptions($db);
 // подключаем хэдер
-
+require_once "inc/header.php";
 //добавления вопроса
 if (isset($_POST['addq'])) {
         $test_id = (int) $_POST['test_id'];
@@ -16,7 +16,7 @@ if (isset($_POST['addq'])) {
         $a_type = (int) $_POST['a_type'];
 
     if (addQuestion($q_body, $a_type, $test_id, $db)) {
-            header('Location: details.php?test='.$test_id);
+            header('Location: http://localhost/tarasov/details.php?test='.$test_id);
     }   
 }
 // добавление варианта ответа
@@ -26,18 +26,18 @@ if (isset($_POST['add_opt'])) {
     $q_id = (int) $_POST['q_id']; 
     $t_id = (int) $_POST['test_id']; 
     if (addOptions($o_body, $o_cflg, $q_id, $db)) {
-            header('Location: details.php?test='.$t_id .'&q_add=' .$q_id);
+            header('Location: http://localhost/tarasov/details.php?test='.$t_id .'&q_add=' .$q_id);
     }   
 }
 // удаление ответа на вопрос
 if (isset($_GET['o_del'])) {
     delOptions($_GET['o_del'],$db);
-    header('location: tarasov/details.php?test='. $_GET['test']);
+    header('location: http://localhost/tarasov/details.php?test='. $_GET['test']);
 }
 // удаление вопроса
 if (isset($_GET['q_del'])) {
     delQuestions($_GET['q_del'],$db);
-    header('location: details.php?test='. $_GET['test']);
+    header('location: http://localhost/tarasov/details.php?test='. $_GET['test']);
 }
 //редактировать вопрос
 
@@ -46,7 +46,7 @@ if (isset($_POST['editq'])){
     var_dump($_POST);
     $edit_q_body = htmlspecialchars($_POST['q_body']);
     updQuestions($_GET['q_edit'], $edit_q_body, $db);
-    header('location: details.php?test='. $_GET['test']);
+    header('location: http://localhost/tarasov/details.php?test='. $_GET['test']);
 }
 // редактировать варианты ответа 
 if(isset($_POST['edit_opt'])) {
@@ -54,10 +54,8 @@ if(isset($_POST['edit_opt'])) {
     $upd_o_body = htmlspecialchars($_POST['o_body']);
     $upd_o_cflg = (int) $_POST['o_cflg'];
     updOptions($upd_o_id, $upd_o_body, $upd_o_cflg, $db);
-    header('location: details.php?test='. $_GET['test']);
+    header('location: http://localhost/tarasov/details.php?test='. $_GET['test']);
 }
-
-require_once "inc/header.php";
 ?>
 
 <div class="row">

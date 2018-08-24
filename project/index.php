@@ -49,7 +49,7 @@ require_once "inc/header.php";
 
                       <div class="card-body">
                           <div class="list-group">
-                                  <a href="details.php?test=<?php echo $key['tests_id'];?>" class="list-group-item list-group-item-action">
+                                  <a href="#" class="list-group-item list-group-item-action">
                                   <?php echo $key['test_name']; ?>
                                     
                                     <span class="badge badge-primary badge-pill float-right mx-1">
