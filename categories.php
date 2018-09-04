@@ -12,11 +12,11 @@
     $result = $db->resultset();
     
 
-require_once "inc/header.php";
+
 
 if (isset($_GET['delcat'])) {
     if (delCat($_GET['delcat'], $db)) {
-        header('Location: http://localhost/tarasov/categories.php');
+        header('Location: categories.php');
     } 
 }
 
@@ -25,9 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cat_name = trim($_POST['cat_name']);
     // print_r($_POST['cat_name']);
     addCat($cat_name, $db);
-    header('Location: http://localhost/tarasov/categories.php');
+    header('Location: categories.php');
 }
 
+require_once "inc/header.php";
 ?>
 
 <div class="container">

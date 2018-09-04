@@ -1,10 +1,10 @@
 <?php 
 
 //config db
-define('DB_HOST','localhost');
-define('DB_USER','root');
-define('DB_PSW','');
-define('DB_NAME','quiz');
+define('DB_HOST','polub39588.mysql');
+define('DB_USER','polub39588_fuser');
+define('DB_PSW','uwY1UM-B');
+define('DB_NAME','polub39588_crud');
 
 
  class Database {
