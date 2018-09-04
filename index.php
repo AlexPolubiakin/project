@@ -24,7 +24,7 @@ require_once "inc/header.php";
       </div>
 
       <div class="col-md-3">
-        <a href="details.php" class="btn btn-primary btn-block">
+        <a href="newdetails.php" class="btn btn-primary btn-block">
           <i class="fas fa-plus"></i> Добавить вопрос
         </a>
       </div>

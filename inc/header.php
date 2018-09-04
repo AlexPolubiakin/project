@@ -26,7 +26,7 @@
           <a href="edit.php" class="nav-link">Тесты</a>
         </li>
         <li class="nav-item px-2">
-          <a href="details.php" class="nav-link">Вопросы</a>
+          <a href="newdetails.php" class="nav-link">Вопросы</a>
         </li>
       </ul>
     </div>

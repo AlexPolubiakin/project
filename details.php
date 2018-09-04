@@ -57,9 +57,8 @@ if(isset($_POST['edit_opt'])) {
     header('location: http://localhost/tarasov/details.php?test='. $_GET['test']);
 }
 ?>
-
-<div class="row">
-    <div class="col-4">
+<div class="container">
+    <div class="row">
         <?php if (isset($_GET['test'])) { 
                 if(isset($_GET['q_edit'])){ 
                     $edit_id = trim($_GET['q_edit']);
@@ -71,10 +70,10 @@ if(isset($_POST['edit_opt'])) {
                 <form method="POST">
                     <input type="hidden" name="q_id" value="<?php echo $_GET['q_edit']; ?>">
                     <div class="form-group">
-                        <label>Введите вопрос:</label>
+                        <label for="editq">Введите вопрос:</label>
                         <textarea class="form-control" name="q_body" rows="4"><?php echo $single_q['0']['q_name']?></textarea>
                     </div>  
-                    <input type="submit" class="btn btn-primary btn-block" name="editq" value="Редактировать">
+                    <input type="submit" class="btn btn-primary btn-block" id="editq" name="editq" value="Редактировать">
                 </form> 
                 </div>    
                 <?php  } else { ?>
@@ -87,35 +86,31 @@ if(isset($_POST['edit_opt'])) {
                         <label>Введите вопрос:</label>
                         <textarea class="form-control" name="q_body" rows="4"></textarea>
                     </div>  
-                    <label>Формат ответа:</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="a_type" value="0" checked>
-                        <label class="form-check-label">
-                        Один ответ
-                        </label>
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group">
+                                <select class="custom-select" name="a_type" id="myInputGroupSelect">
+                                    <option value="0">Один ответ</option>
+                                    <option value="1">Множественный ответ</option>
+                                    <option value="2">Свободный ввод</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <label class="input-group-text" for="myInputGroupSelect">Формат ответа</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-danger btn-block" name="addq" value="Добавить">
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="a_type" value="1">
-                        <label class="form-check-label">
-                        Множественный ответ
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="a_type" value="2">
-                        <label class="form-check-label">
-                        Свободный ввод
-                        </label>
-                    </div>
-                    <input type="submit" class="btn btn-danger btn-block" name="addq" value="Добавить">
                 </form> 
                 </div>   
                 <?php }?>
+
             <?php } else { ?>
 
-            <div class="card">
-                <div class="card-header">
+    
                     <h4>Выбирете тест</h4>
-                </div>
                     <table class="table table-striped">
                         <thead class="thead-dark">
                         <tr>
@@ -144,60 +139,10 @@ if(isset($_POST['edit_opt'])) {
                         } ?>
                         </tbody>
                     </table>
-            </div>
         <?php } ?>
-    </div>
 
-    <div class="col-4">
+
         
-<?php if (isset($_GET['test'])) { 
-        $all_q = getQuestions($_GET['test'], $db);
-            $n = 1;
-    foreach ($all_q as $key) { 
-            ?>
-        <div class="card">
-            <h5 class="card-header">Вопрос №
-                    <?php echo $n;?> 
-                    <a href="?test=<?php echo $key['test_id'];?>&q_add=<?php echo $key['q_id'];?>" class="btn btn-danger float-right">
-                    Добавить ответ
-                </a>
-            </h5>
-                <div class="card-body">
-                  <h6 class="card-title">
-                      <?php echo $key['q_name'];?>
-                        <a href="?test=<?php echo $key['test_id'];?>&q_del=<?php echo $key['q_id'];?>" class="text-danger float-right mx-1"><i class="fas fa-trash-alt"></i></a> 
-                        <a href="?test=<?php echo $key['test_id'];?>&q_edit=<?php echo $key['q_id'];?>" class="text-primary float-right mx-1"><i class="fas fa-edit"></i></a>
-                        
-                </h6>
-                
-                <?php 
-                foreach ($allOptions as $value) {
-                    if ($value['id_q'] == $key['q_id']) {
-                ?>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <?php echo $value['o_body'];?>
-                                <a class="float-right text-danger mx-1" href="?test=<?php echo $key['test_id'];?>&o_del=<?php echo $value['id_answ'];?>">
-                                <i class="fas fa-trash-alt"></i>
-                                </a>
-                                <a class="float-right mx-1" href="?test=<?php echo $key['test_id'];?>&o_edit=<?php echo $value['id_answ'];?>"><i class="fas fa-edit"></i></a>
-                            </li>
-                        </ul>
-                        <?php
-                    } 
-                }
-                ?>
-              </div>
-            </div>
-        <?php 
-            $n++;    
-    }
-} 
-            ?>  
-    </div>
-    <div class="col-4 p-3">
-
-
         <?php if (isset($_GET['q_add'])) {  ?>
             <div class="col-10">
             <form method="post">
@@ -235,28 +180,28 @@ if(isset($_POST['edit_opt'])) {
                 </div>
                 <?php if($single_option[0]['o_cflg'] == 0) { ?>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="o_cflg" value='0' checked >
-                        <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="o_cflg" id="o_cflg1" value='0' checked >
+                        <label for="o_cflg1" class="form-check-label">
                             Ответ неверный
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="o_cflg" value='1' >
-                        <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="o_cflg" id="o_cflg2" value='1' >
+                        <label for="o_cflg2" class="form-check-label">
                             Ответ верный
                         </label>
                     </div>
                 <?php } else { ?>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="o_cflg" value='0' >
-                    <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="o_cflg" id="o_cflg1" value='0' >
+                    <label for="o_cflg1" class="form-check-label">
                         Ответ неверный
                     </label>
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="o_cflg" value='1'checked>
-                    <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="o_cflg" id="o_cflg2" value='1'checked>
+                    <label for="o_cflg2" class="form-check-label">
                         Ответ верный
                     </label>
                 </div>
@@ -268,7 +213,62 @@ if(isset($_POST['edit_opt'])) {
             echo 'Вы должны выбрать вопрос для добавления вариантов ответа или редактирования!';
         }
         ?>
+ 
+
+    <div class="container">
+        
+<?php if (isset($_GET['test'])) { 
+        $all_q = getQuestions($_GET['test'], $db);
+            $n = 1;
+    foreach ($all_q as $key) { 
+            ?>
+        <div class="card">
+            <h5 class="card-header">Вопрос №
+                    <?php echo $n;?> 
+                    <a href="?test=<?php echo $key['test_id'];?>&q_add=<?php echo $key['q_id'];?>" class="btn btn-danger float-right mx-1">
+                    Добавить ответ
+                    </a>
+                    <a href="?test=<?php echo $key['test_id'];?>&q_edit=<?php echo $key['q_id'];?>" class="btn btn-primary float-right mx-1">
+                        Редактировать
+                    </a>
+            </h5>
+                <div class="card-body">
+                  <h6 class="card-title">
+                      <?php echo $key['q_name'];?>
+                        <a href="?test=<?php echo $key['test_id'];?>&q_del=<?php echo $key['q_id'];?>" class="text-danger float-right mx-1"><i class="fas fa-trash-alt"></i></a> 
+                        <a href="?test=<?php echo $key['test_id'];?>&q_edit=<?php echo $key['q_id'];?>" class="text-primary float-right mx-1"><i class="fas fa-edit"></i></a>
+                        
+                    </h6>
+                
+                <?php 
+                foreach ($allOptions as $value) {
+                    if ($value['id_q'] == $key['q_id']) {
+                ?>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <span class="mx-1"><?php echo $value['o_body'];?></span>
+                                <span class="mx-1 align-middle">
+                                    <a class="float-right text-danger mx-1" href="?test=<?php echo $key['test_id'];?>&o_del=<?php echo $value['id_answ'];?>">
+                                    <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                <a class="float-right mx-1" href="?test=<?php echo $key['test_id'];?>&o_edit=<?php echo $value['id_answ'];?>"><i class="fas fa-edit"></i></a>
+                            </span>
+                            </li>
+                            
+                        </ul>
+                        <?php
+                    } 
+                }
+                ?>
+              </div>
+            </div>
+        <?php 
+            $n++;    
+    }
+} 
+            ?>  
     </div>
+</div>
 </div>
 
 <?php

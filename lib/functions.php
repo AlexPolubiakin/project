@@ -92,6 +92,16 @@ function addOptions($o_body,$o_cf,$id_q,$db) {
         die('все пропало шеф');
     }   
 }
+function addOptionsBlank($id_q,$db) {
+    $db->query('INSERT INTO options (id_q) VALUES (:id_q)');
+    $db->bind(':id_q', $id_q);
+
+    if ($db->execute()) {
+        return true;
+    } else {
+        die('все пропало шеф');
+    }   
+}
 
 function getOptions($db) {
     $db->query('SELECT * FROM options');
@@ -162,6 +172,16 @@ function updOptions($id,$upd_name,$c_flg, $db) {
     } else {
         die('все пропало шеф');    
     } 
+}
+
+function checkAnswers($id,$db) {
+    $db->query('SELECT * FROM options WHERE id_q = :id');
+    $db->bind(':id', $id);
+    if ($db->execute()) {
+        return $db->resultset();
+    } else {
+        die('все пропало');
+    }
 }
 
 
